@@ -35,7 +35,7 @@ function Table(props) {
    return(
       <table>
         <TableHeader/>
-        <TableBody characterData={props.characterData} />
+        <TableBody characterData={props.characterData} removeCharacter={props.removeCharacter} />
       </table>
    );
 }
