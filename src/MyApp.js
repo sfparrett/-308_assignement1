@@ -1,6 +1,8 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Table from './Table';
 import Form from './Form';
+import axios from 'axios';
+
 
 function MyApp() {
    const [characters, setCharacters] = useState([]);
@@ -12,9 +14,39 @@ function MyApp() {
       setCharacters(updated);
    }
    
+   // CHECK THIS FUNCTION 
    function updateList(person) {
    	setCharacters([...characters, person]);
    }
+
+   // function DeleteItem(){
+   //    // how do I get the id in there??? / how does this replace remove One Charecter and where is 
+   //    // it called 
+   //    try {
+   //       const response = await axios.get('http://localhost:5000/users');
+   //       return response.status   
+   //    }
+   //    catch (error){
+   //       console.log(error); 
+   //       return false; 
+         
+   //    }
+   // }
+
+   async function fetchAll(){
+      try {
+         const response = await axios.get('http://localhost:5000/users');
+         return response.data.users_list;     
+      }
+      catch (error){
+         //We're not handling errors. Just logging into the console.
+         console.log(error); 
+         return false;         
+      }
+   }
+
+   useEffect(() => { fetchAll().then( result => { if (result) setCharacters(result);});}, [] );
+
 
    return (
     <div className="container">
